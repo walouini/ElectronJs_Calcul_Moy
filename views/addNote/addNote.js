@@ -10,9 +10,8 @@ $('#addNote').on('submit', function(e){
         return obj;
     }, {});
 
-    ipcRenderer.send('add-new-item', newItem);
+    ipcRenderer.send('add-new-note', newItem);
 
     this.reset();
-    $('#addNote')[0].reset()
-
+    $('#addNote')[0].reset();
 });
