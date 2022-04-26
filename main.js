@@ -1,11 +1,15 @@
 const { app, BrowserWindow, ipcMain } = require('electron')
+const Store = require('electron-store');
+const store = new Store();
 
-let notes = [
+/* let notes = [
     { id: 1, label: 'mathématique', coefficient: 3, note: 14 },
     { id: 2, label: 'physique', coefficient: 3, note: 16 },
     { id: 3, label: 'philosophie', coefficient: 1, note: 11 },
     { id: 4, label: 'informatique', coefficient: 3, note: 18 }
-]
+] */
+
+let notes = store.has('notes') ? store.get('notes') : [];
 
 //
 let mainWindow = null
@@ -42,6 +46,7 @@ function createWindow(pathFile, widthWin = 1200, heightWin = 800) {
 app.whenReady().then(() => {
     mainWindow = createWindow('views/home/home.html');
 
+    
     mainWindow.webContents.once('did-finish-load', () => {
         mainWindow.send('store-data', {
             noteData: notes,
@@ -61,18 +66,22 @@ ipcMain.on('open-new-note-window', (evt, data) => {
 
 ipcMain.on('add-new-note', (evt, newNote) => {
     
+    let arrayForDelete = notes;
+
     // Définir l'id du nouvel élément
     let newId = 1;
-
     // Vérifier la longueur du tableau et redéfinir l'id
-    if(notes.length > 0) {
+    if(arrayForDelete.length > 0) {
         
-        newId = notes[notes.length - 1].id + 1; 
+        newId = arrayForDelete[arrayForDelete.length - 1].id + 1; 
     }
     
     newNote.id = newId;
 
-    notes.push(newNote);
+    arrayForDelete.push(newNote);
+
+    store.set('notes', notes)
+
     mainWindow.webContents.send('update-with-new-note', {
         
         newNote : [newNote],
@@ -95,7 +104,9 @@ ipcMain.on('delete-note', (evt, data) => {
             break;
         }
     }
-        
+
+    store.set('notes', notes)
+
     data.moyenneGeneral = generateMoyenne(notes);
     
     // retourner la confirmation que notre item a été correctement supprimé du serveur
