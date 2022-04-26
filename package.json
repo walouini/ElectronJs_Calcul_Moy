@@ -1,0 +1,20 @@
+{
+  "name": "appmoyenne",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.1.1",
+    "@popperjs/core": "^2.11.5",
+    "bootstrap": "^5.1.3",
+    "electron": "^8.2.2",
+    "jquery": "^3.6.0",
+    "popper.js": "^1.16.1"
+  }
+}
