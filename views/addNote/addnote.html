@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajout d'une note</title>
+    <link href="../../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../node_modules/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <h1 class="text-center">Ajout d'une note</h1>
+        </div>
+        <div class="row mt-5">
+            <div class="col text-center">
+                <form id="addNote">
+                    <div class="form-group"> <label for="itemMatiere">Matière</label> <input type="text"
+                            class="form-control" id="itemLabel" name="matiere" placeholder="Quel est la Matière ?"> </div>
+                    <div class="form-group"> <label for="itemCoefficient">Coefficient</label> <input type="number"
+                            class="form-control" id="itemCoefficient" name="coefficient" placeholder="Quel est la Coefficient ?">
+                    </div>
+                    <div class="form-group"> <label for="itemNote">Note</label> <input type="number"
+                            class="form-control" id="itemNote" name="note" placeholder="Quel est la Note ?">
+                    </div>
+                    <button type="submit" class="btn btn-dark mt-2">AJOUTER</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script> require('bootstrap'); window.jquery = window.$ = require('jquery') </script>
+    <script src="addNote.js"></script>
+</body>
+
+</html>

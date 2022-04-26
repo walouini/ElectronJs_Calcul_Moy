@@ -45,3 +45,10 @@ ipcRenderer.on('store-data',(evt,data) => {
     generateTableRow('#notesTbody',data.noteData);
     updateMoyenne(data.moyenneGeneral)
 })
+
+//Add event Listener on click for add new item
+const openWindowAddItem = (evt) => {
+    ipcRenderer.send('open-new-item-window', evt.target.id)
+}
+
+$('#addNote').on('click', openWindowAddItem)

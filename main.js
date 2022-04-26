@@ -1,5 +1,36 @@
 const { app, BrowserWindow, ipcMain } = require('electron')
 
+let notes = [
+    { id: 1, label: 'mathématique', coefficient: 3, note: 14 },
+    { id: 2, label: 'physique', coefficient: 3, note: 16 },
+    { id: 3, label: 'philosophie', coefficient: 1, note: 11 },
+    { id: 1, label: 'informatique', coefficient: 3, note: 18 }
+]
+
+//
+let mainWindow = null
+//
+let targetAddItemid
+
+// const createWindow = () => {
+//     const win = new BrowserWindow({
+//       width: 800,
+//       height: 600,
+//       webPreferences : {
+//         nodeIntegration : true
+//       }
+//     })
+
+//     win.loadFile('views/home/home.html')
+
+//     win.webContents.once('did-finish-load', () => {
+//         win.send('store-data',{
+//             noteData : notes,
+//             moyenneGeneral : generateMoyenne(notes)
+//         })
+//     })
+// }
+
 function generateMoyenne(recipes) {
 
     let note = 0
@@ -10,39 +41,41 @@ function generateMoyenne(recipes) {
         coeff += rowData.coefficient
     })
 
-    return note/coeff
+    return note / coeff
 }
 
-let notes = [
-    { id: 1, label: 'mathématique', coefficient: 3, note: 14 },
-    { id: 2, label: 'physique', coefficient: 3, note: 16 },
-    { id: 3, label: 'philosophie', coefficient: 1, note: 11 },
-    { id: 1, label: 'informatique', coefficient: 3, note: 18 }
-]
-
-const createWindow = () => {
-    const win = new BrowserWindow({
-      width: 800,
-      height: 600,
-      webPreferences : {
-        nodeIntegration : true
-      }
-    })
-  
-    win.loadFile('views/home/home.html')
-
-    win.webContents.once('did-finish-load', () => {
-        win.send('store-data',{
-            noteData : notes,
-            moyenneGeneral : generateMoyenne(notes)
-        })
-    })
+// function create Window
+function createWindow(pathFile, widthWin = 1200, heightWin = 800) {
+    let win = new BrowserWindow({
+        width: widthWin,
+        height: heightWin,
+        webPreferences: {
+            nodeIntegration: true
+        }
+    });
+    win.loadFile(pathFile);
+    return win;
 }
 
 app.whenReady().then(() => {
-    createWindow()
-    app.on('activate', () => {
-        if (BrowserWindow.getAllWindows().length === 0) createWindow()
+    mainWindow = createWindow('views/home/home.html');
+
+    mainWindow.webContents.once('did-finish-load', () => {
+        mainWindow.send('store-data', {
+            noteData: notes,
+            moyenneGeneral: generateMoyenne(notes)
+        })
+    })
+})
+
+ipcMain.on('open-new-item-window', (evt, data) => {
+    // creer une nouvelle fenetre
+    const win = createWindow('views/addNote/addNote.html', 500, 400);
+
+    targetAddItemid = data;
+
+    win.on('closed', () => {
+        targetAddItemid = null
     })
 })
 
