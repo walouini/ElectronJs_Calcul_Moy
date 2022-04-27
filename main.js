@@ -113,6 +113,13 @@ ipcMain.on('delete-note', (evt, data) => {
     evt.sender.send('update-delete-note', data);
 })
 
+//Modify
+ipcMain.on('open-modify-window', (evt, data) => {
+    // creer une nouvelle fenetre
+    const win = createWindow('views/addNote/addNote.html', 600, 500);
+})
+
+
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') app.quit()
 })
