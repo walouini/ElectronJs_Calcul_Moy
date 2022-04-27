@@ -13,7 +13,6 @@ function generateTableRow(tableId, tableData) {
         tr.append(' <td>' + rowData.coefficient + '</td>')
         tr.append(' <td>' + rowData.note + '</td>')
         tr.append(' <td>' +
-            '<button id="modify' + rowData.id + '" class="btn btn-outline-warning">modifier</button>' +
             '<button id="delete' + rowData.id + '" class="btn btn-outline-danger ms-2">supprimer</button>' +
             '</td>'
         )

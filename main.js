@@ -11,10 +11,8 @@ const store = new Store();
 
 let notes = store.has('notes') ? store.get('notes') : [];
 
-//
+// fenetre general
 let mainWindow = null
-//
-let targetAddItemid
 
 function generateMoyenne(tabNotes) {
 
@@ -31,7 +29,7 @@ function generateMoyenne(tabNotes) {
 }
 
 // function create Window
-function createWindow(pathFile, widthWin = 1200, heightWin = 800) {
+function createWindow(pathFile, widthWin = 1000, heightWin = 750) {
     let win = new BrowserWindow({
         width: widthWin,
         height: heightWin,
